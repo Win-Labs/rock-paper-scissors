@@ -1,12 +1,13 @@
-* {
+*,
+body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
 body {
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  min-width: 100vw;
   background: radial-gradient(
     134.34% 134.34% at 50% 0%,
     #1f3757 0%,
