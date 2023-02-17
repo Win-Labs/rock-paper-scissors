@@ -3,3 +3,44 @@
   padding: 0;
   margin: 0;
 }
+
+.container {
+  display: flex;
+  gap: 10px;
+}
+
+.outer-circle {
+  height: 203px;
+  width: 198px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.inner-circle {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: calc(50% - 76px);
+  left: calc(50% - 76px);
+  height: 152px;
+  width: 152px;
+  border-radius: 50%;
+  background-color: #dddddd;
+  box-shadow: inset 0px 8px #babfd4;
+}
+
+.paper {
+  background-color: #5873f5;
+  box-shadow: inset 0px -9px #2a45c2;
+}
+
+.scissors {
+  background-color: #eb9f0e;
+  box-shadow: inset 0px -9px #c76c1b;
+}
+
+.rock {
+  background-color: #db2e4d;
+  box-shadow: inset 0px -9px #9d1634;
+}
