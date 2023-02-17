@@ -16,7 +16,11 @@ body {
 
 .container {
   display: flex;
-  gap: 10px;
+}
+
+.process-wrapper {
+  justify-content: center;
+  align-items: center;
 }
 
 .outer-circle {
@@ -28,9 +32,6 @@ body {
 
 .inner-circle {
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   top: calc(50% - 76px);
   left: calc(50% - 76px);
   height: 152px;
@@ -41,18 +42,28 @@ body {
 }
 
 .paper {
+  position: absolute;
   background-color: #5873f5;
   box-shadow: inset 0px -9px #2a45c2;
+  top: 0px;
+  left: 0px;
 }
 
 .scissors {
+  position: absolute;
   background-color: #eb9f0e;
   box-shadow: inset 0px -9px #c76c1b;
+  top: 0px;
+  left: 100%;
+  transform: translate(-100%, 0);
 }
 
 .rock {
+  position: absolute;
   background-color: #db2e4d;
   box-shadow: inset 0px -9px #9d1634;
+  top: 100%;
+  transform: translate(0, -100%);
 }
 
 .title-score {
@@ -123,4 +134,20 @@ body {
   border: solid 1px #ffffff;
   border-radius: 8px;
   font-family: "Barlow Semi Condensed", sans-serif;
+}
+
+.process {
+  justify-content: center;
+  align-items: center;
+  width: 476px;
+  height: 430px;
+  padding: 99.5px 94.5px 76.5px 94.5px;
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
