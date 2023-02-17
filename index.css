@@ -6,6 +6,8 @@
 
 body {
   background-color: #161e3f;
+  width: 100vw;
+  height: 100vw;
 }
 
 .container {
