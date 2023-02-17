@@ -4,6 +4,10 @@
   margin: 0;
 }
 
+body {
+  background-color: #161e3f;
+}
+
 .container {
   display: flex;
   gap: 10px;
@@ -43,9 +47,6 @@
 .rock {
   background-color: #db2e4d;
   box-shadow: inset 0px -9px #9d1634;
-
-body {
-  background-color: #161e3f;
 }
 
 .title-score {
