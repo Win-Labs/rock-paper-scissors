@@ -3,3 +3,53 @@
   padding: 0;
   margin: 0;
 }
+
+body {
+  background-color: #161e3f;
+}
+
+.title-score {
+  display: flex;
+  background-color: transparent;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 700px;
+  height: 150px;
+  margin-top: 48px;
+  margin-left: auto;
+  margin-right: auto;
+  border: solid 3px #5e6a81;
+  border-radius: 20px;
+}
+
+.title {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 40px;
+  width: 155.48px;
+  margin-left: 33px;
+  line-height: 0.95;
+  margin-bottom: 33px;
+  margin-top: 33px;
+  text-align: left;
+  align-items: center;
+}
+
+.score {
+  width: 150px;
+  height: 114px;
+}
+
+.rules-button {
+  position: absolute;
+  background-color: transparent;
+  color: #ffffff;
+  font-size: 16px;
+  width: 128px;
+  height: 40px;
+  right: 0;
+  bottom: 0;
+  margin: 2%;
+  border: solid 0.5px #ffffff;
+  border-radius: 15px;
+}
