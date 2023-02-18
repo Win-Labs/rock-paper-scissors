@@ -1,5 +1,6 @@
 *,
-body {
+body,
+html {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -16,19 +17,13 @@ html {
   );
 }
 
-/* body,
-html {
-  width: 100%;
-  height: 100%;
-} */
-
 .container {
   display: flex;
 }
 
 .main {
-  padding: 41px 38px 35px 38px;
   height: 100%;
+  padding: 41px 38px 35px 38px;
   justify-content: center;
   align-items: center;
   flex-direction: column;
