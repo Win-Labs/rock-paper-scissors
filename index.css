@@ -167,3 +167,26 @@ html {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.p-first,
+.p-second,
+.p-third {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  background-color: transparent;
+}
+.p-first:hover {
+  transition: all 0.3s ease;
+  outline: 30px solid rgba(255, 255, 255, 0.05);
+}
+
+.p-second:hover {
+  transition: all 0.3s ease;
+  outline: 70px solid rgba(255, 255, 255, 0.05);
+}
+
+.p-third:hover {
+  transition: all 0.3s ease;
+  outline: 110px solid rgba(255, 255, 255, 0.05);
+}
