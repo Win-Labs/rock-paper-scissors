@@ -168,25 +168,18 @@ html {
   transform: translate(-50%, -50%);
 }
 
-.p-first,
-.p-second,
-.p-third {
+.pulse {
   height: 100%;
   width: 100%;
-  border-radius: 50%;
-  background-color: transparent;
-}
-.p-first:hover {
-  transition: all 0.3s ease;
-  outline: 30px solid rgba(255, 255, 255, 0.05);
+  border-radius: 100%;
+  transition: box-shadow 0.3s ease;
 }
 
-.p-second:hover {
-  transition: all 0.3s ease;
-  outline: 70px solid rgba(255, 255, 255, 0.05);
+.start:hover {
+  box-shadow: 0 0 0 27px rgba(255, 255, 255, 0.05);
 }
 
-.p-third:hover {
-  transition: all 0.3s ease;
-  outline: 110px solid rgba(255, 255, 255, 0.05);
+.win:hover {
+  box-shadow: 0 0 0 65px rgba(255, 255, 255, 0.05),
+    0 0 0 135px rgba(255, 255, 255, 0.05), 0 0 0 217px rgba(255, 255, 255, 0.05);
 }
