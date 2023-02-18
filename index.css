@@ -40,6 +40,11 @@ html {
   width: 198px;
   border-radius: 50%;
   position: relative;
+  transition: transform 0.3s ease;
+}
+
+.outer-circle:active {
+  transform: scale(1.05);
 }
 
 .inner-circle {
@@ -66,16 +71,14 @@ html {
   background-color: #eb9f0e;
   box-shadow: inset 0px -9px #c76c1b;
   top: 0px;
-  left: 100%;
-  transform: translate(-100%, 0);
+  right: 0px;
 }
 
 .rock {
   position: absolute;
   background-color: #db2e4d;
   box-shadow: inset 0px -9px #9d1634;
-  top: 100%;
-  transform: translate(0, -100%);
+  bottom: 0px;
 }
 
 .title-score {
@@ -176,10 +179,12 @@ html {
 }
 
 .start:hover {
+  cursor: pointer;
   box-shadow: 0 0 0 27px rgba(255, 255, 255, 0.05);
 }
 
 .win:hover {
+  cursor: pointer;
   box-shadow: 0 0 0 65px rgba(255, 255, 255, 0.05),
     0 0 0 135px rgba(255, 255, 255, 0.05), 0 0 0 217px rgba(255, 255, 255, 0.05);
 }
