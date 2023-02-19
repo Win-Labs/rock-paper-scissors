@@ -129,14 +129,28 @@ const init = () => {
 
       arenaWrapper.insertAdjacentHTML(
         "beforeend",
-        playerChoiceHTML + resultPlayAgain(winner) + houseWeaponHTML
+        playerChoiceHTML +
+          `
+            <div class="container choice">
+              <p class="choice-title">HOUSE PICKED</p>
+              <div class="placeholder"></div>
+            </div>
+          `
       );
-      document
-        .querySelector(".btn-play-again")
-        .addEventListener("click", () => {
-          arenaWrapper.remove();
-          init();
-        });
+
+      // setTimeout(() => {
+      //   document.querySelector(".placeholder").remove();
+      //   arenaWrapper.insertAdjacentHTML(
+      //     "beforeend",
+      //     resultPlayAgain(winner) + houseWeaponHTML
+      //   );
+      //   document
+      //     .querySelector(".btn-play-again")
+      //     .addEventListener("click", () => {
+      //       arenaWrapper.remove();
+      //       init();
+      //     });
+      // }, 10000);
     })
   );
 };
