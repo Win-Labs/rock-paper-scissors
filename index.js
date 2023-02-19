@@ -1,10 +1,24 @@
 "use strict";
 
+const userScore = document.querySelector("#user-score");
+const houseScore = document.querySelector("#house-score");
+const backdrop = document.querySelector(".bg-model");
+const rulesPopup = document.querySelector(".rules-popup");
+const btnRules = document.querySelector(".rules-button");
+const btnClose = document.querySelector(".cross-img");
+
+[backdrop, btnRules, btnClose].forEach((element) =>
+  element.addEventListener("click", () => {
+    backdrop.classList.toggle("hidden");
+    rulesPopup.classList.toggle("hidden");
+  })
+);
+
 const weapons = ["paper", "scissors", "rock"];
 const titleScore = document.querySelector(".title-score");
 const arenaWrapperHTML = `<div class="container arena-wrapper"></div>`;
 
-function init() {
+const init = () => {
   titleScore.insertAdjacentHTML("afterend", arenaWrapperHTML);
   const arenaWrapper = document.querySelector(".arena-wrapper");
   const arenaHTML = `
@@ -41,29 +55,30 @@ function init() {
 `;
 
   const resultPlayAgain = (winner) => {
-    let userScore = parseInt(document.querySelector("#user-score").innerHTML);
-    let houseScore = parseInt(document.querySelector("#house-score").innerHTML);
+    let userScoreVal = parseInt(userScore.innerHTML);
+    let houseScoreVal = parseInt(houseScore.innerHTML);
 
     if (winner === "player") {
-      userScore++;
-      document.querySelector("#user-score").innerHTML = userScore;
-    } else if (winner === "house") {
-      houseScore++;
-      document.querySelector("#house-score").innerHTML = houseScore;
-    } else {
+      userScoreVal++;
+      userScore.innerHTML = userScore;
+    }
+
+    if (winner === "house") {
+      houseScoreVal++;
+      userScore.innerHTML = houseScore;
     }
 
     return `
-  <div class="container result-play-again">
-    <p class="result">${
-      (winner === "player" && "YOU WIN") ||
-      (winner === "house" && "YOU LOSE") ||
-      (winner === "none" && "DRAW")
-    } 
-    </p>
-    <button class="btn-play-again">PLAY AGAIN</button>
-  </div>
-`;
+      <div class="container result-play-again">
+        <p class="result">${
+          (winner === "player" && "YOU WIN") ||
+          (winner === "house" && "YOU LOSE") ||
+          (winner === "none" && "DRAW")
+        } 
+        </p>
+        <button class="btn-play-again">PLAY AGAIN</button>
+      </div>
+    `;
   };
 
   document
@@ -99,28 +114,6 @@ function init() {
         });
     })
   );
-}
+};
 
 init();
-
-document
-  .querySelector(".rules-button")
-  .addEventListener("click", () => open_rules());
-
-document
-  .querySelector(".cross-img")
-  .addEventListener("click", () => close_rules());
-
-document
-  .querySelector(".bg-model")
-  .addEventListener("click", () => close_rules());
-
-function open_rules() {
-  document.querySelector(".bg-model").style.display = "block";
-  document.querySelector(".rules-popup").style.display = "block";
-}
-
-function close_rules() {
-  document.querySelector(".bg-model").style.display = "none";
-  document.querySelector(".rules-popup").style.display = "none";
-}
