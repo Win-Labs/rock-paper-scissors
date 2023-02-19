@@ -1,4 +1,6 @@
 "use strict";
+
+const weapons = ["paper", "scissors", "rock"];
 const arena = document.querySelector(".arena");
 
 const weaponView = (classes, weapon) => `
@@ -18,7 +20,6 @@ const choiceView = (weapon) => `
   </div>
 `;
 
-const weapons = ["paper", "scissors", "rock"];
 
 weapons.forEach((weapon) =>
   arena.insertAdjacentHTML("afterbegin", weaponView(weapon, weapon))
@@ -38,3 +39,26 @@ document.querySelectorAll(".outer-circle").forEach((weapon) =>
       .insertAdjacentHTML("beforeend", playerChoiceHTML + houseWeaponHTML);
   })
 );
+
+
+  document
+    .querySelector(".rules-button")
+    .addEventListener("click", () => open_rules());
+
+  document
+    .querySelector(".cross-img")
+    .addEventListener("click", () => close_rules());
+
+  document
+    .querySelector(".bg-model")
+    .addEventListener("click", () => close_rules());
+
+function open_rules() {
+  document.querySelector(".bg-model").style.display = "block";
+  document.querySelector(".rules-popup").style.display = "block";
+}
+
+function close_rules() {
+  document.querySelector(".bg-model").style.display = "none";
+  document.querySelector(".rules-popup").style.display = "none";
+}

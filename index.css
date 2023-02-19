@@ -175,6 +175,11 @@ html {
   margin-top: auto;
 }
 
+.rules-button:hover {
+  background-color: #ffffff;
+  color: #3b4262;
+}
+
 .rules-button {
   padding: 11px 36px 10px 37px;
   color: #ffffff;
@@ -220,4 +225,52 @@ html {
   cursor: pointer;
   box-shadow: 0 0 0 65px rgba(255, 255, 255, 0.05),
     0 0 0 135px rgba(255, 255, 255, 0.05), 0 0 0 217px rgba(255, 255, 255, 0.05);
+}
+
+.bg-model {
+  display: none;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+}
+
+.rules-popup {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 461px;
+  background: #ffffff;
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.196706);
+  border-radius: 8px;
+}
+
+.popup-top {
+  padding: 32px 32px 31.91px 32px;
+  justify-content: space-between;
+}
+
+.popup-text {
+  color: #3b4262;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 32px;
+}
+
+.cross-img:hover {
+  filter: invert(0%) sepia(84%) saturate(7500%) hue-rotate(328deg)
+    brightness(114%) contrast(114%);
+}
+
+.popup-bottom {
+  padding-top: 16px;
+  padding-bottom: 32px;
+  justify-content: center;
+  align-items: center;
 }
