@@ -65,7 +65,7 @@ const init = () => {
 
     if (winner === "house") {
       houseScoreVal++;
-      userScore.innerHTML = houseScoreVal;
+      houseScoreVal.innerHTML = houseScoreVal;
     }
 
     return `
