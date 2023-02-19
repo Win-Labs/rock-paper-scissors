@@ -43,7 +43,6 @@ html {
 
 .arena-wrapper {
   justify-content: center;
-  align-items: start;
   margin-top: 64px;
   gap: 72px;
 }
@@ -51,8 +50,8 @@ html {
 .choice {
   flex-direction: column;
   gap: 63px;
-  max-height: 395px;
-  justify-content: start;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .choice-title {
@@ -313,7 +312,7 @@ html {
 
 .result-play-again {
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   gap: 16px;
 }
 .result {
@@ -383,9 +382,11 @@ html {
 }
 
 .placeholder {
+  max-width: 224.63px;
+  max-height: 224.63px;
   width: 100%;
   height: 100%;
   border-radius: 50%;
   background-color: rgba(0, 0, 0, 0.1);
-  margin-top: calc(var(--outer-circle-height)-100);
+  margin-bottom: calc(var(--outer-circle-height) * 0.1337);
 }

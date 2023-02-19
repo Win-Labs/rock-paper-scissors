@@ -55,7 +55,7 @@ const init = () => {
 
   const choiceView = (weapon, win, house) => `
   <div class="container choice">
-    <p class="choice-title">${house ? "HOUSE" : "YOU"} PICKED</p>
+    <p class="choice-title">${house ? "THE HOUSE" : "YOU"} PICKED</p>
     ${weaponView(
       {
         "outer-circle": `${weapon}-chosen game-over ${win && "win"} oc-big`,
@@ -116,10 +116,7 @@ const init = () => {
         (weaponTitle === houseWeaponTitle && "none") ||
         "house";
 
-      const playerChoiceHTML =
-        winner === "player"
-          ? choiceView(weaponTitle, true)
-          : choiceView(weaponTitle);
+      let playerChoiceHTML = choiceView(weaponTitle);
 
       const houseWeaponHTML =
         winner === "house"
@@ -132,25 +129,30 @@ const init = () => {
         playerChoiceHTML +
           `
             <div class="container choice">
-              <p class="choice-title">HOUSE PICKED</p>
+              <p class="choice-title">THE HOUSE PICKED</p>
               <div class="placeholder"></div>
             </div>
           `
       );
 
-      // setTimeout(() => {
-      //   document.querySelector(".placeholder").remove();
-      //   arenaWrapper.insertAdjacentHTML(
-      //     "beforeend",
-      //     resultPlayAgain(winner) + houseWeaponHTML
-      //   );
-      //   document
-      //     .querySelector(".btn-play-again")
-      //     .addEventListener("click", () => {
-      //       arenaWrapper.remove();
-      //       init();
-      //     });
-      // }, 10000);
+      playerChoiceHTML =
+        winner === "player"
+          ? choiceView(weaponTitle, true)
+          : choiceView(weaponTitle);
+
+      setTimeout(() => {
+        document.querySelector(".placeholder").closest(".choice").remove();
+        arenaWrapper.insertAdjacentHTML(
+          "beforeend",
+          resultPlayAgain(winner) + houseWeaponHTML
+        );
+        document
+          .querySelector(".btn-play-again")
+          .addEventListener("click", () => {
+            arenaWrapper.remove();
+            init();
+          });
+      }, 1000);
     })
   );
 };
