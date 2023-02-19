@@ -33,7 +33,7 @@ html {
 .main {
   height: 100%;
   padding: 41px 38px 35px 38px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
 }
