@@ -15,9 +15,11 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function open_rules() {
-  document.querySelector(".bg-model").style.display = "flex";
+  document.querySelector(".bg-model").style.display = "block";
+  document.querySelector(".rules-popup").style.display = "block";
 }
 
 function close_rules() {
   document.querySelector(".bg-model").style.display = "none";
+  document.querySelector(".rules-popup").style.display = "none";
 }
