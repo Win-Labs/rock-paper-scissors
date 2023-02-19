@@ -87,6 +87,7 @@ html {
 .paper-chosen {
   background-color: #5873f5;
   box-shadow: inset 0px -9px #2a45c2;
+  transform: scale(1.48);
 }
 
 .scissors {
@@ -100,6 +101,7 @@ html {
 .scissors-chosen {
   background-color: #eb9f0e;
   box-shadow: inset 0px -9px #c76c1b;
+  transform: scale(1.48);
 }
 
 .rock {
@@ -112,6 +114,7 @@ html {
 .rock-chosen {
   background-color: #db2e4d;
   box-shadow: inset 0px -9px #9d1634;
+  transform: scale(1.48);
 }
 
 .title-score {
@@ -221,10 +224,14 @@ html {
   box-shadow: 0 0 0 27px rgba(255, 255, 255, 0.05);
 }
 
-.win:hover {
+.win {
   cursor: pointer;
-  box-shadow: 0 0 0 65px rgba(255, 255, 255, 0.05),
-    0 0 0 135px rgba(255, 255, 255, 0.05), 0 0 0 217px rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 0 40px rgba(255, 255, 255, 0.05),
+    0 0 0 80px rgba(255, 255, 255, 0.05), 0 0 0 120px rgba(255, 255, 255, 0.05);
+}
+
+.game-over {
+  pointer-events: none;
 }
 
 .bg-model {

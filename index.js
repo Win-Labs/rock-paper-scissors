@@ -47,10 +47,10 @@ const init = () => {
   </div>
 `;
 
-  const choiceView = (weapon, house) => `
+  const choiceView = (weapon, win, house) => `
   <div class="container choice">
     <p class="choice-title">${house ? "HOUSE" : "YOU"} PICKED</p>
-    ${weaponView(`${weapon}-chosen`, weapon)}
+    ${weaponView(`${weapon}-chosen game-over ${win && "win"}`, weapon)}
   </div>
 `;
 
@@ -92,14 +92,22 @@ const init = () => {
   document.querySelectorAll(".outer-circle").forEach((weapon) =>
     weapon.addEventListener("click", () => {
       const weaponTitle = weapon.classList[1];
-      const playerChoiceHTML = choiceView(weaponTitle);
       const houseWeaponTitle =
         weapons[Math.floor(Math.random() * weapons.length)];
-      const houseWeaponHTML = choiceView(houseWeaponTitle, true);
       const winner =
         (rules[weaponTitle].winsOver === houseWeaponTitle && "player") ||
         (weaponTitle === houseWeaponTitle && "none") ||
         "house";
+
+      const playerChoiceHTML =
+        winner === "player"
+          ? choiceView(weaponTitle, true)
+          : choiceView(weaponTitle);
+
+      const houseWeaponHTML =
+        winner === "house"
+          ? choiceView(houseWeaponTitle, true, true)
+          : choiceView(houseWeaponTitle, false, true);
       arena.remove();
 
       arenaWrapper.insertAdjacentHTML(
