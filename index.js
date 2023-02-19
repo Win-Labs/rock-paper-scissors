@@ -112,6 +112,7 @@ document
   .addEventListener("click", () => identify_winner());
 
 let winner = "User";
+
 function identify_winner() {
   let userScore = parseInt(document.querySelector("#user-score").innerHTML);
   let houseScore = parseInt(document.querySelector("#house-score").innerHTML);
