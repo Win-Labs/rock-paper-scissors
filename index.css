@@ -3,8 +3,11 @@
   --outer-circle-height: 203px;
   --inner-circle-width: 152px;
   --inner-circle-height: 152px;
+  --outer-circle-thickness: -9px;
+  --inner-circle-thickness: 8px;
   --icon-width: 73px;
   --icon-height: 86px;
+  --scale-factor: 1.48;
 }
 
 *,
@@ -77,10 +80,10 @@ html {
 .inner-circle {
   height: var(--inner-circle-height);
   width: var(--inner-circle-width);
+  box-shadow: inset 0px var(--inner-circle-thickness) #babfd4;
   position: absolute;
   border-radius: 50%;
   background-color: #dddddd;
-  box-shadow: inset 0px 8px #babfd4;
   top: calc(50%);
   left: calc(50%);
   transform: translate(-50%, -50%);
@@ -91,20 +94,20 @@ html {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  box-shadow: inset 0px -9px #2a45c2;
+  box-shadow: inset 0px var(--outer-circle-thickness) #2a45c2;
 }
 .thickness-scissors {
   position: relative;
   width: 100%;
   height: 100%;
-  box-shadow: inset 0px -9px #c76c1b;
+  box-shadow: inset 0px var(--outer-circle-thickness) #c76c1b;
   border-radius: 50%;
 }
 .thickness-rock {
   width: 100%;
   height: 100%;
   position: relative;
-  box-shadow: inset 0px -9px #9d1634;
+  box-shadow: inset 0px var(--outer-circle-thickness) #9d1634;
   border-radius: 50%;
 }
 
@@ -347,16 +350,34 @@ html {
 }
 
 .oc-big {
-  width: calc(var(--outer-circle-width) * 1.48);
-  height: calc(var(--outer-circle-height) * 1.48);
+  width: calc(var(--outer-circle-width) * var(--scale-factor));
+  height: calc(var(--outer-circle-height) * var(--scale-factor));
 }
 
 .ic-big {
-  width: calc(var(--inner-circle-width) * 1.48);
-  height: calc(var(--inner-circle-height) * 1.48);
+  width: calc(var(--inner-circle-width) * var(--scale-factor));
+  height: calc(var(--inner-circle-height) * var(--scale-factor));
 }
 
 .i-big {
-  width: calc(var(--icon-width) * 1.48);
-  height: calc(var(--icon-height) * 1.48);
+  width: calc(var(--icon-width) * var(--scale-factor));
+  height: calc(var(--icon-height) * var(--scale-factor));
+}
+
+.inner-circle-thickness-big {
+  box-shadow: inset 0px
+    calc(var(--inner-circle-thickness) * var(--scale-factor)) #babfd4;
+}
+
+.thickness-paper-big {
+  box-shadow: inset 0px
+    calc(var(--outer-circle-thickness) * var(--scale-factor)) #2a45c2;
+}
+.thickness-scissors-big {
+  box-shadow: inset 0px
+    calc(var(--outer-circle-thickness) * var(--scale-factor)) #c76c1b;
+}
+.thickness-rock-big {
+  box-shadow: inset 0px
+    calc(var(--outer-circle-thickness) * var(--scale-factor)) #9d1634;
 }

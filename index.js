@@ -39,9 +39,11 @@ const init = () => {
 
   const weaponView = (classes, weapon) => `
   <div class="outer-circle ${classes["outer-circle"] || ""}">
-    <div class="thickness-${weapon}">
+    <div class="thickness-${weapon} thickness-${classes.thickness || ""}">
       <div class="pulse start ${classes.pulse || ""}">
-        <div class="inner-circle ${classes["inner-circle"] || ""}">
+        <div class="inner-circle thickness-inner ${
+          classes["inner-circle"] || ""
+        }">
           <img class="icon ${
             classes.icon || ""
           }" src="./assets/images/${weapon}.svg" alt="${weapon}" />
@@ -57,8 +59,9 @@ const init = () => {
     ${weaponView(
       {
         "outer-circle": `${weapon}-chosen game-over ${win && "win"} oc-big`,
-        "inner-circle": "ic-big",
+        "inner-circle": "ic-big inner-circle-thickness-big",
         "icon": "i-big",
+        "thickness": `${weapon}-big`,
       },
       weapon
     )}
