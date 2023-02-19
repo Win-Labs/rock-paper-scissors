@@ -60,3 +60,22 @@ function close_rules() {
   document.querySelector(".bg-model").style.display = "none";
   document.querySelector(".rules-popup").style.display = "none";
 }
+
+document
+  .querySelector("#user-score")
+  .addEventListener("click", () => identify_winner());
+
+let winner = "User";
+function identify_winner() {
+  let userScore = parseInt(document.querySelector("#user-score").innerHTML);
+  let houseScore = parseInt(document.querySelector("#house-score").innerHTML);
+
+  if (winner === "User") {
+    userScore++;
+    document.querySelector("#user-score").innerHTML = userScore;
+  } else if (winner === "House") {
+    houseScore++;
+    document.querySelector("#house-score").innerHTML = houseScore;
+  } else {
+  }
+}
