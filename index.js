@@ -11,6 +11,13 @@ const weaponView = (classes, weapon) => `
   </div>
 `;
 
+const choiceView = (weapon) => `
+  <div class="container choice">
+    <p class="choice-title">YOU PICKED</p>
+    ${weaponView(`${weapon}-chosen`, weapon)}
+  </div>
+`;
+
 const weapons = ["paper", "scissors", "rock"];
 
 weapons.forEach((weapon) =>
@@ -20,19 +27,11 @@ weapons.forEach((weapon) =>
 document.querySelectorAll(".outer-circle").forEach((weapon) =>
   weapon.addEventListener("click", () => {
     const weaponTitle = weapon.classList[1];
-    const playerChoiceHTML = `
-        <div class="container choice">
-          <p class="choice-title">YOU PICKED</p>
-          ${weaponView(`${weaponTitle}-chosen`, weaponTitle)}
-        </div>
-    `;
+    const playerChoiceHTML = choiceView(weaponTitle);
     const houseWeaponTitle =
       weapons[Math.floor(Math.random() * weapons.length)];
-    const houseWeaponHTML = `
-        <div class='container choice'>
-          <p class='choice-title'>HOUSE PICKED</p>
-          ${weaponView(`${houseWeaponTitle}-chosen`, houseWeaponTitle)}
-        </div>`;
+    const houseWeaponHTML = choiceView(houseWeaponTitle);
+
     arena.remove();
     document
       .querySelector(".arena-wrapper")
