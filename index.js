@@ -60,12 +60,12 @@ const init = () => {
 
     if (winner === "player") {
       userScoreVal++;
-      userScore.innerHTML = userScore;
+      userScore.innerHTML = userScoreVal;
     }
 
     if (winner === "house") {
       houseScoreVal++;
-      userScore.innerHTML = houseScore;
+      userScore.innerHTML = houseScoreVal;
     }
 
     return `
