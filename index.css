@@ -274,3 +274,41 @@ html {
   justify-content: center;
   align-items: center;
 }
+
+.result-play-again {
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+}
+.result {
+  font-family: "Barlow Semi Condensed";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 67px;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.196706);
+}
+
+.btn-play-again {
+  display: block;
+  font-family: "Barlow Semi Condensed";
+  font-style: normal;
+  border-style: none;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 2.5px;
+  color: #3b4262;
+  padding: 15px 62px 14px 60px;
+  background: linear-gradient(0deg, #f3f3f3 0%, #ffffff 100%);
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.196706);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.btn-play-again:hover {
+  cursor: pointer;
+  color: #db2e4d;
+}

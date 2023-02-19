@@ -3,6 +3,12 @@
 const weapons = ["paper", "scissors", "rock"];
 const arena = document.querySelector(".arena");
 
+const rules = {
+  paper: { winsOver: "rock" },
+  rock: { winsOver: "scissors" },
+  scissors: { winsOver: "paper" },
+};
+
 const weaponView = (classes, weapon) => `
   <div class="outer-circle ${classes}">
     <div class="pulse start">
@@ -20,6 +26,18 @@ const choiceView = (weapon, house) => `
   </div>
 `;
 
+const resultPlayAgain = (winner) => `
+  <div class="container result-play-again">
+    <p class="result">${
+      (winner === "player" && "YOU WIN") ||
+      (winner === "house" && "YOU LOSE") ||
+      (winner === "none" && "DRAW")
+    } 
+    </p>
+    <button class="btn-play-again">PLAY AGAIN</button>
+  </div>
+`;
+
 weapons.forEach((weapon) =>
   arena.insertAdjacentHTML("afterbegin", weaponView(weapon, weapon))
 );
@@ -31,11 +49,18 @@ document.querySelectorAll(".outer-circle").forEach((weapon) =>
     const houseWeaponTitle =
       weapons[Math.floor(Math.random() * weapons.length)];
     const houseWeaponHTML = choiceView(houseWeaponTitle, true);
-
+    const winner =
+      (rules[weaponTitle].winsOver === houseWeaponTitle && "player") ||
+      (weaponTitle === houseWeaponTitle && "none") ||
+      "house";
     arena.remove();
+
     document
       .querySelector(".arena-wrapper")
-      .insertAdjacentHTML("beforeend", playerChoiceHTML + houseWeaponHTML);
+      .insertAdjacentHTML(
+        "beforeend",
+        playerChoiceHTML + resultPlayAgain(winner) + houseWeaponHTML
+      );
   })
 );
 
