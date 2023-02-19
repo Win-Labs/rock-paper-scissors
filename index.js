@@ -13,13 +13,12 @@ const weaponView = (classes, weapon) => `
   </div>
 `;
 
-const choiceView = (weapon) => `
+const choiceView = (weapon, house) => `
   <div class="container choice">
-    <p class="choice-title">YOU PICKED</p>
+    <p class="choice-title">${house ? "HOUSE" : "YOU"} PICKED</p>
     ${weaponView(`${weapon}-chosen`, weapon)}
   </div>
 `;
-
 
 weapons.forEach((weapon) =>
   arena.insertAdjacentHTML("afterbegin", weaponView(weapon, weapon))
@@ -31,7 +30,7 @@ document.querySelectorAll(".outer-circle").forEach((weapon) =>
     const playerChoiceHTML = choiceView(weaponTitle);
     const houseWeaponTitle =
       weapons[Math.floor(Math.random() * weapons.length)];
-    const houseWeaponHTML = choiceView(houseWeaponTitle);
+    const houseWeaponHTML = choiceView(houseWeaponTitle, true);
 
     arena.remove();
     document
@@ -40,18 +39,17 @@ document.querySelectorAll(".outer-circle").forEach((weapon) =>
   })
 );
 
+document
+  .querySelector(".rules-button")
+  .addEventListener("click", () => open_rules());
 
-  document
-    .querySelector(".rules-button")
-    .addEventListener("click", () => open_rules());
+document
+  .querySelector(".cross-img")
+  .addEventListener("click", () => close_rules());
 
-  document
-    .querySelector(".cross-img")
-    .addEventListener("click", () => close_rules());
-
-  document
-    .querySelector(".bg-model")
-    .addEventListener("click", () => close_rules());
+document
+  .querySelector(".bg-model")
+  .addEventListener("click", () => close_rules());
 
 function open_rules() {
   document.querySelector(".bg-model").style.display = "block";
