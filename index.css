@@ -1,3 +1,12 @@
+:root {
+  --outer-circle-width: 198px;
+  --outer-circle-height: 203px;
+  --inner-circle-width: 152px;
+  --inner-circle-height: 152px;
+  --icon-width: 73px;
+  --icon-height: 86px;
+}
+
 *,
 body,
 html {
@@ -54,8 +63,8 @@ html {
 }
 
 .outer-circle {
-  height: 203px;
-  width: 198px;
+  height: var(--outer-circle-height);
+  width: var(--outer-circle-width);
   border-radius: 50%;
   position: relative;
   transition: transform 0.1s ease;
@@ -66,14 +75,15 @@ html {
 }
 
 .inner-circle {
+  height: var(--inner-circle-height);
+  width: var(--inner-circle-width);
   position: absolute;
-  top: calc(50% - 76px);
-  left: calc(50% - 76px);
-  height: 152px;
-  width: 152px;
   border-radius: 50%;
   background-color: #dddddd;
   box-shadow: inset 0px 8px #babfd4;
+  top: calc(50%);
+  left: calc(50%);
+  transform: translate(-50%, -50%);
 }
 
 .paper {
@@ -87,7 +97,6 @@ html {
 .paper-chosen {
   background-color: #5873f5;
   box-shadow: inset 0px -9px #2a45c2;
-  transform: scale(1.48);
 }
 
 .scissors {
@@ -101,7 +110,6 @@ html {
 .scissors-chosen {
   background-color: #eb9f0e;
   box-shadow: inset 0px -9px #c76c1b;
-  transform: scale(1.48);
 }
 
 .rock {
@@ -114,7 +122,6 @@ html {
 .rock-chosen {
   background-color: #db2e4d;
   box-shadow: inset 0px -9px #9d1634;
-  transform: scale(1.48);
 }
 
 .title-score {
@@ -226,8 +233,8 @@ html {
 
 .win {
   cursor: pointer;
-  box-shadow: 0 0 0 40px rgba(255, 255, 255, 0.05),
-    0 0 0 80px rgba(255, 255, 255, 0.05), 0 0 0 120px rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 0 65px rgba(255, 255, 255, 0.05),
+    0 0 0 130px rgba(255, 255, 255, 0.05), 0 0 0 195px rgba(255, 255, 255, 0.05);
 }
 
 .game-over {
@@ -320,4 +327,19 @@ html {
 .btn-play-again:hover {
   cursor: pointer;
   color: #db2e4d;
+}
+
+.oc-big {
+  width: calc(var(--outer-circle-width) * 1.48);
+  height: calc(var(--outer-circle-height) * 1.48);
+}
+
+.ic-big {
+  width: calc(var(--inner-circle-width) * 1.48);
+  height: calc(var(--inner-circle-height) * 1.48);
+}
+
+.i-big {
+  width: calc(var(--icon-width) * 1.48);
+  height: calc(var(--icon-height) * 1.48);
 }

@@ -38,10 +38,12 @@ const init = () => {
   };
 
   const weaponView = (classes, weapon) => `
-  <div class="outer-circle ${classes}">
-    <div class="pulse start">
-      <div class="inner-circle">
-        <img class="icon" src="./assets/images/${weapon}.svg" alt="${weapon}" />
+  <div class="outer-circle ${classes["outer-circle"] || ""}">
+    <div class="pulse start ${classes.pulse || ""}">
+      <div class="inner-circle ${classes["inner-circle"] || ""}">
+        <img class="icon ${
+          classes.icon || ""
+        }" src="./assets/images/${weapon}.svg" alt="${weapon}" />
       </div>
     </div>
   </div>
@@ -50,7 +52,14 @@ const init = () => {
   const choiceView = (weapon, win, house) => `
   <div class="container choice">
     <p class="choice-title">${house ? "HOUSE" : "YOU"} PICKED</p>
-    ${weaponView(`${weapon}-chosen game-over ${win && "win"}`, weapon)}
+    ${weaponView(
+      {
+        "outer-circle": `${weapon}-chosen game-over ${win && "win"} oc-big`,
+        "inner-circle": "ic-big",
+        "icon": "i-big",
+      },
+      weapon
+    )}
   </div>
 `;
 
@@ -86,7 +95,10 @@ const init = () => {
     .addEventListener("click", () => identify_winner());
 
   weapons.forEach((weapon) =>
-    arena.insertAdjacentHTML("afterbegin", weaponView(weapon, weapon))
+    arena.insertAdjacentHTML(
+      "afterbegin",
+      weaponView({ "outer-circle": weapon }, weapon)
+    )
   );
 
   document.querySelectorAll(".outer-circle").forEach((weapon) =>
