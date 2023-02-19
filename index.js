@@ -39,11 +39,13 @@ const init = () => {
 
   const weaponView = (classes, weapon) => `
   <div class="outer-circle ${classes["outer-circle"] || ""}">
-    <div class="pulse start ${classes.pulse || ""}">
-      <div class="inner-circle ${classes["inner-circle"] || ""}">
-        <img class="icon ${
-          classes.icon || ""
-        }" src="./assets/images/${weapon}.svg" alt="${weapon}" />
+    <div class="thickness-${weapon}">
+      <div class="pulse start ${classes.pulse || ""}">
+        <div class="inner-circle ${classes["inner-circle"] || ""}">
+          <img class="icon ${
+            classes.icon || ""
+          }" src="./assets/images/${weapon}.svg" alt="${weapon}" />
+        </div>
       </div>
     </div>
   </div>
