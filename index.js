@@ -26,7 +26,20 @@ const choiceView = (weapon, house) => `
   </div>
 `;
 
-const resultPlayAgain = (winner) => `
+const resultPlayAgain = (winner) => {
+  let userScore = parseInt(document.querySelector("#user-score").innerHTML);
+  let houseScore = parseInt(document.querySelector("#house-score").innerHTML);
+
+  if (winner === "player") {
+    userScore++;
+    document.querySelector("#user-score").innerHTML = userScore;
+  } else if (winner === "house") {
+    houseScore++;
+    document.querySelector("#house-score").innerHTML = houseScore;
+  } else {
+  }
+
+  return `
   <div class="container result-play-again">
     <p class="result">${
       (winner === "player" && "YOU WIN") ||
@@ -37,6 +50,11 @@ const resultPlayAgain = (winner) => `
     <button class="btn-play-again">PLAY AGAIN</button>
   </div>
 `;
+};
+
+document
+  .querySelector("#user-score")
+  .addEventListener("click", () => identify_winner());
 
 weapons.forEach((weapon) =>
   arena.insertAdjacentHTML("afterbegin", weaponView(weapon, weapon))
@@ -84,23 +102,4 @@ function open_rules() {
 function close_rules() {
   document.querySelector(".bg-model").style.display = "none";
   document.querySelector(".rules-popup").style.display = "none";
-}
-
-document
-  .querySelector("#user-score")
-  .addEventListener("click", () => identify_winner());
-
-let winner = "User";
-function identify_winner() {
-  let userScore = parseInt(document.querySelector("#user-score").innerHTML);
-  let houseScore = parseInt(document.querySelector("#house-score").innerHTML);
-
-  if (winner === "User") {
-    userScore++;
-    document.querySelector("#user-score").innerHTML = userScore;
-  } else if (winner === "House") {
-    houseScore++;
-    document.querySelector("#house-score").innerHTML = houseScore;
-  } else {
-  }
 }
