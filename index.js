@@ -1,11 +1,17 @@
 "use strict";
+import { weaponView, choiceView } from "./view/views.js";
+import { weapons, rules } from "./model/models.js";
 
-const userScore = document.querySelector("#user-score");
-const houseScore = document.querySelector("#house-score");
-const backdrop = document.querySelector(".bg-model");
-const rulesPopup = document.querySelector(".rules-popup");
-const btnRules = document.querySelector(".rules-button");
-const btnClose = document.querySelector(".cross-img");
+import {
+  titleScore,
+  arenaWrapperHTML,
+  userScore,
+  houseScore,
+  backdrop,
+  rulesPopup,
+  btnRules,
+  btnClose,
+} from "./view/views.js";
 
 [backdrop, btnRules, btnClose].forEach((element) =>
   element.addEventListener("click", () => {
@@ -13,10 +19,6 @@ const btnClose = document.querySelector(".cross-img");
     rulesPopup.classList.toggle("hidden");
   })
 );
-
-const weapons = ["paper", "scissors", "rock"];
-const titleScore = document.querySelector(".title-score");
-const arenaWrapperHTML = `<div class="container arena-wrapper"></div>`;
 
 const init = () => {
   titleScore.insertAdjacentHTML("afterend", arenaWrapperHTML);
@@ -30,43 +32,6 @@ const init = () => {
   arenaWrapper.insertAdjacentHTML("afterbegin", arenaHTML);
 
   const arena = document.querySelector(".arena");
-
-  const rules = {
-    paper: { winsOver: "rock" },
-    rock: { winsOver: "scissors" },
-    scissors: { winsOver: "paper" },
-  };
-
-  const weaponView = (classes, weapon) => `
-  <div class="outer-circle ${classes["outer-circle"] || ""}">
-    <div class="thickness-${weapon} thickness-${classes.thickness || ""}">
-      <div class="pulse start ${classes.pulse || ""}">
-        <div class="inner-circle thickness-inner ${
-          classes["inner-circle"] || ""
-        }">
-          <img class="icon ${
-            classes.icon || ""
-          }" src="./assets/images/${weapon}.svg" alt="${weapon}" />
-        </div>
-      </div>
-    </div>
-  </div>
-`;
-
-  const choiceView = (weapon, win, house) => `
-  <div class="container choice">
-    <p class="choice-title">${house ? "THE HOUSE" : "YOU"} PICKED</p>
-    ${weaponView(
-      {
-        "outer-circle": `${weapon}-chosen game-over ${win && "win"} oc-big`,
-        "inner-circle": "ic-big inner-circle-thickness-big",
-        "icon": "i-big",
-        "thickness": `${weapon}-big`,
-      },
-      weapon
-    )}
-  </div>
-`;
 
   const resultPlayAgain = (winner) => {
     let userScoreVal = parseInt(userScore.innerHTML);
@@ -94,10 +59,6 @@ const init = () => {
       </div>
     `;
   };
-
-  document
-    .querySelector("#user-score")
-    .addEventListener("click", () => identify_winner());
 
   weapons.forEach((weapon) =>
     arena.insertAdjacentHTML(
