@@ -28,19 +28,7 @@ const closeRules = () => {
 };
 
 const resultPlayAgain = winner => {
-    let userScoreVal = parseInt(userScore.innerHTML);
-    let houseScoreVal = parseInt(houseScore.innerHTML);
-
-    if (winner === "player") {
-        userScoreVal++;
-        userScore.innerHTML = userScoreVal;
-    }
-
-    if (winner === "house") {
-        houseScoreVal++;
-        houseScore.innerHTML = houseScoreVal;
-    }
-
+    (winner === "player" && userScore.textContent++) || (winner === "house" && houseScore.textContent++);
     return resultView(winner);
 };
 
