@@ -390,3 +390,85 @@ html {
   background-color: rgba(0, 0, 0, 0.1);
   margin-bottom: calc(var(--outer-circle-height) * 0.1337);
 }
+
+@media (max-width: 600px) {
+  .button-wrapper {
+    justify-content: center;
+    margin-bottom: 52px;
+  }
+
+  .rules-button {
+    height: 40px;
+    width: 128px;
+  }
+
+  .title-score {
+    background-color: transparent;
+    justify-content: space-between;
+    align-items: center;
+    border: 3px solid rgba(255, 255, 255, 0.289199);
+    width: 311px;
+    height: 96px;
+    border-radius: 5px;
+    padding: 12px 12px 12px 12px;
+  }
+
+  .title {
+    width: 33px;
+    font-weight: 700;
+    font-size: 21px;
+    width: 83px;
+    line-height: 16px;
+  }
+
+  .score {
+    width: 80px;
+    height: 72px;
+    border-radius: 4px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .score-text {
+    height: 12px;
+    left: 2.86%;
+    right: 2.86%;
+    top: 10px;
+    font-size: 10px;
+    line-height: 12px;
+    letter-spacing: 1.5625px;
+  }
+
+  .score-value {
+    height: 40px;
+    left: 2.86%;
+    right: 2.86%;
+    top: calc(50% - 40px / 2 + 6px);
+    font-size: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #565468;
+  }
+
+  .arena-wrapper {
+    margin-top: 105px;
+  }
+
+  .arena {
+    width: 312px;
+    height: 282px;
+    /* padding: 99.5px 94.5px 76.5px 94.5px; */
+  }
+
+  .outer-circle {
+    height: calc(var(--outer-circle-height) * 0.6535);
+    width: calc(var(--outer-circle-width) * 0.6534);
+    border-radius: 50%;
+    transition: transform 0.1s ease;
+  }
+
+  .inner-circle {
+    height: calc(var(--inner-circle-height) * 0.6579);
+    width: calc(var(--inner-circle-width) * 0.6579);
+  }
+}
