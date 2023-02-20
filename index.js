@@ -1,121 +1,88 @@
 "use strict";
-import { weaponView, choiceView } from "./view/views.js";
+import {
+    weaponView,
+    choiceView,
+    placeholderView,
+    titleScore,
+    arenaWrapperHTML,
+    userScore,
+    houseScore,
+    backdrop,
+    rulesPopup,
+    btnRules,
+    btnClose,
+    arenaHTML,
+    whenClicked,
+    resultView,
+    destroy,
+    addAfter,
+    addInside,
+    select,
+    selectMany,
+} from "./view/views.js";
 import { weapons, rules } from "./model/models.js";
 
-import {
-  titleScore,
-  arenaWrapperHTML,
-  userScore,
-  houseScore,
-  backdrop,
-  rulesPopup,
-  btnRules,
-  btnClose,
-} from "./view/views.js";
-
-[backdrop, btnRules, btnClose].forEach((element) =>
-  element.addEventListener("click", () => {
+const closeRules = () => {
     backdrop.classList.toggle("hidden");
     rulesPopup.classList.toggle("hidden");
-  })
-);
+};
 
-const init = () => {
-  titleScore.insertAdjacentHTML("afterend", arenaWrapperHTML);
-  const arenaWrapper = document.querySelector(".arena-wrapper");
-  const arenaHTML = `
-    <div class="container arena">
-      <img src="./assets/images/triangle.svg" alt="triangle" />
-    </div>
-`;
-
-  arenaWrapper.insertAdjacentHTML("afterbegin", arenaHTML);
-
-  const arena = document.querySelector(".arena");
-
-  const resultPlayAgain = (winner) => {
+const resultPlayAgain = winner => {
     let userScoreVal = parseInt(userScore.innerHTML);
     let houseScoreVal = parseInt(houseScore.innerHTML);
 
     if (winner === "player") {
-      userScoreVal++;
-      userScore.innerHTML = userScoreVal;
+        userScoreVal++;
+        userScore.innerHTML = userScoreVal;
     }
 
     if (winner === "house") {
-      houseScoreVal++;
-      houseScore.innerHTML = houseScoreVal;
+        houseScoreVal++;
+        houseScore.innerHTML = houseScoreVal;
     }
 
-    return `
-      <div class="container result-play-again">
-        <p class="result">${
-          (winner === "player" && "YOU WIN") ||
-          (winner === "house" && "YOU LOSE") ||
-          (winner === "none" && "DRAW")
-        } 
-        </p>
-        <button class="btn-play-again">PLAY AGAIN</button>
-      </div>
-    `;
-  };
+    return resultView(winner);
+};
 
-  weapons.forEach((weapon) =>
-    arena.insertAdjacentHTML(
-      "afterbegin",
-      weaponView({ "outer-circle": weapon }, weapon)
-    )
-  );
+whenClicked([backdrop, btnRules, btnClose], closeRules);
 
-  document.querySelectorAll(".outer-circle").forEach((weapon) =>
-    weapon.addEventListener("click", () => {
-      const weaponTitle = weapon.classList[1];
-      const houseWeaponTitle =
-        weapons[Math.floor(Math.random() * weapons.length)];
-      const winner =
-        (rules[weaponTitle].winsOver === houseWeaponTitle && "player") ||
-        (weaponTitle === houseWeaponTitle && "none") ||
-        "house";
+const determineWinner = (player1, player2) => {
+    return (rules[player1].winsOver === player2 && "player") || (player1 === player2 && "none") || "house";
+};
 
-      let playerChoiceHTML = choiceView(weaponTitle);
+const init = () => {
+    addAfter(titleScore, arenaWrapperHTML);
+    const arenaWrapper = select(".arena-wrapper");
+    addInside(arenaWrapper, arenaHTML);
+    const arena = select(".arena");
 
-      const houseWeaponHTML =
-        winner === "house"
-          ? choiceView(houseWeaponTitle, true, true)
-          : choiceView(houseWeaponTitle, false, true);
-      arena.remove();
+    weapons.forEach(weapon => addInside(arena, weaponView({ "outer-circle": weapon }, weapon)));
+    selectMany(".outer-circle").forEach(weapon =>
+        whenClicked(weapon, () => {
+            const weaponTitle = weapon.classList[1];
+            const houseWeaponTitle = weapons[Math.floor(Math.random() * weapons.length)];
+            const winner = determineWinner(weaponTitle, houseWeaponTitle);
+            let playerChoiceHTML = choiceView(weaponTitle);
+            const houseWeaponHTML =
+                winner === "house"
+                    ? choiceView(houseWeaponTitle, true, true)
+                    : choiceView(houseWeaponTitle, false, true);
 
-      arenaWrapper.insertAdjacentHTML(
-        "beforeend",
-        playerChoiceHTML +
-          `
-            <div class="container choice">
-              <p class="choice-title">THE HOUSE PICKED</p>
-              <div class="placeholder"></div>
-            </div>
-          `
-      );
+            destroy(arena);
+            addInside(arenaWrapper, playerChoiceHTML + placeholderView);
 
-      playerChoiceHTML =
-        winner === "player"
-          ? choiceView(weaponTitle, true)
-          : choiceView(weaponTitle);
+            if (winner === "player") playerChoiceHTML = choiceView(weaponTitle, true);
 
-      setTimeout(() => {
-        document.querySelector(".placeholder").closest(".choice").remove();
-        arenaWrapper.insertAdjacentHTML(
-          "beforeend",
-          resultPlayAgain(winner) + houseWeaponHTML
-        );
-        document
-          .querySelector(".btn-play-again")
-          .addEventListener("click", () => {
-            arenaWrapper.remove();
-            init();
-          });
-      }, 1000);
-    })
-  );
+            setTimeout(() => {
+                select(".placeholder").closest(".choice").remove();
+                addInside(arenaWrapper, resultPlayAgain(winner) + houseWeaponHTML);
+                whenClicked(select(".btn-play-again"), () => {
+                    destroy(arenaWrapper);
+                    init();
+                });
+            }, 1000);
+        })
+    );
 };
 
 init();
