@@ -1,16 +1,26 @@
-export const titleScore = document.querySelector(".title-score");
-export const userScore = document.querySelector("#user-score");
-export const houseScore = document.querySelector("#house-score");
-export const backdrop = document.querySelector(".bg-model");
-export const rulesPopup = document.querySelector(".rules-popup");
-export const btnRules = document.querySelector(".rules-button");
-export const btnClose = document.querySelector(".cross-img");
-export const arenaWrapperHTML = `<div class="container arena-wrapper"></div>`;
-export const arenaHTML = `
-  <div class="container arena">
-    <img src="./assets/images/triangle.svg" alt="triangle" />
-  </div>
-  `;
+export const select = element => {
+    return document.querySelector(element);
+};
+
+export const selectMany = element => {
+    return document.querySelectorAll(element);
+};
+
+export const whenClicked = (elements, handler) =>
+    elements.length
+        ? elements.forEach(element => element.addEventListener("click", handler))
+        : elements.addEventListener("click", handler);
+
+export const addInside = (target, src) => {
+    target.insertAdjacentHTML("beforeend", src);
+};
+
+export const addAfter = (target, src) => {
+    target.insertAdjacentHTML("afterend", src);
+};
+export const destroy = target => {
+    target.remove();
+};
 
 export const weaponView = (classes, weapon) => `
   <div class="outer-circle ${classes["outer-circle"] || ""}">
@@ -58,7 +68,16 @@ export const resultView = winner => {
 `;
 };
 
-export const whenClicked = (elements, handler) =>
-    elements.length
-        ? elements.forEach(element => element.addEventListener("click", handler))
-        : elements.addEventListener("click", handler);
+export const titleScore = select(".title-score");
+export const userScore = select("#user-score");
+export const houseScore = select("#house-score");
+export const backdrop = select(".bg-model");
+export const rulesPopup = select(".rules-popup");
+export const btnRules = select(".rules-button");
+export const btnClose = select(".cross-img");
+export const arenaWrapperHTML = `<div class="container arena-wrapper"></div>`;
+export const arenaHTML = `
+  <div class="container arena">
+    <img src="./assets/images/triangle.svg" alt="triangle" />
+  </div>
+  `;
