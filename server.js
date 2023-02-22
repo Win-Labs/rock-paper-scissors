@@ -1,14 +1,27 @@
 const WebSocket = require("ws");
+/* var Parse = require("parse/node");
 
-rules = {
-    paper: { winsOver: "rock" },
-    rock: { winsOver: "scissors" },
-    scissors: { winsOver: "paper" },
-};
+Parse.initialize("k6yjP3igu9eX1WN0wlAhQmLuLDNo8eEnKgRHdMGo", "bRh6S9rqx6qqV2XvCJ7JPrFtErZzHwQgVizR50n9"); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+Parse.serverURL = "https://parseapi.back4app.com/";
 
-const determineWinner = (player1, player2) => {
-    return (rules[player1].winsOver === player2 && "player") || (player1 === player2 && "none") || "opponent";
-};
+async function saveNewPlayer() {
+    //Create your Parse Object
+    const soccerPlayer = new Parse.Object("SoccerPlayer");
+    //Define its attributes
+    soccerPlayer.set("playerName", "A. Wed");
+    soccerPlayer.set("yearOfBirth", 1997);
+    soccerPlayer.set("emailContact", "a.wed@email.io");
+    soccerPlayer.set("attributes", ["fast", "good conditioning"]);
+    try {
+        //Save the Object
+        const result = await soccerPlayer.save();
+        console.log("New object created with objectId: " + result.id);
+    } catch (error) {
+        console.log("Failed to create new object: " + error.message);
+    }
+}
+
+saveNewPlayer(); */
 
 const data = [];
 
@@ -22,8 +35,9 @@ server.on("connection", async socket => {
     // Handle incoming WebSocket messages
     socket.on("message", message => {
         data.push(JSON.parse(message));
+        console.log(data);
         if (data.length === 2) {
-            socket.send(determineWinner(data[0].choice, data[1].choice));
+            socket.send(JSON.stringify({ player1: data[0].choice, player2: data[1].choice }));
             data.length = 0;
         }
     });

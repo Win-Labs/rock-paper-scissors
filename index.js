@@ -20,7 +20,7 @@ import {
     select,
     selectMany,
 } from "./view/views.js";
-import { weapons } from "./model/models.js";
+import { rules, weapons } from "./model/models.js";
 
 let playerChoiceStr;
 let opponentChoiceStr;
@@ -42,6 +42,10 @@ const resultPlayAgain = winner => {
 
 whenClicked([backdrop, btnRules, btnClose], closeRules);
 
+const determineWinnerWeapon = (player1, player2) => {
+    return (rules[player1].winsOver === player2 && player1) || (player1 === player2 && "none") || player2;
+};
+
 function init() {
     // Prepare the arena with choices
     addAfter(titleScore, arenaWrapperHTML);
@@ -56,8 +60,6 @@ function init() {
             // Choice is made - weapon is chosen
             playerChoiceStr = weapon.classList[1];
             gameSocket.send(JSON.stringify({ choice: playerChoiceStr }));
-            opponentChoiceStr = weapons[Math.floor(Math.random() * weapons.length)];
-            gameSocket.send(JSON.stringify({ choice: opponentChoiceStr }));
 
             // Remove the screen with 3 weapon choices
             destroy(arena);
@@ -72,13 +74,23 @@ function init() {
             // Wait for the message from the server
             gameSocket.onmessage = event =>
                 setTimeout(() => {
-                    winner = event.data;
-                    console.log(winner);
-
+                    const parsedServerData = JSON.parse(event.data);
+                    const winnerWeapon = determineWinnerWeapon(parsedServerData.player1, parsedServerData.player2);
+                    opponentChoiceStr = Object.values(parsedServerData).find(value => playerChoiceStr !== value);
+                    console.log(opponentChoiceStr);
+                    console.log(winnerWeapon);
                     // Modify players' views in case he wins
-                    if (winner === "player") playerChoiceHTML = choiceView(playerChoiceStr, true);
-                    if (winner === "opponent") opponentChoiceHTML = choiceView(opponentChoiceStr, true, true);
-                    else opponentChoiceHTML = choiceView(opponentChoiceStr, false, true);
+                    if (winnerWeapon === playerChoiceStr) {
+                        winner = "player";
+                        playerChoiceHTML = choiceView(playerChoiceStr, true);
+                    }
+                    if (winnerWeapon === opponentChoiceStr) {
+                        winner = "opponent";
+                        opponentChoiceHTML = choiceView(opponentChoiceStr, true, true);
+                    } else {
+                        winner = "none";
+                        opponentChoiceHTML = choiceView(opponentChoiceStr, false, true);
+                    }
 
                     // Replace the placeholder with the opponent's DOM view
                     select(".placeholder").closest(".choice").remove();
