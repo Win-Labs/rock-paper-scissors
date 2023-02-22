@@ -78,6 +78,6 @@ export const btnClose = select(".cross-img");
 export const arenaWrapperHTML = `<div class="container arena-wrapper"></div>`;
 export const arenaHTML = `
   <div class="container arena">
-    <img src="./assets/images/triangle.svg" alt="triangle" />
+    <img class="triangle-svg" src="./assets/images/triangle.svg" alt="triangle" />
   </div>
   `;
