@@ -10,7 +10,7 @@ const determineWinner = (player1, player2) => {
     return (rules[player1].winsOver === player2 && "player") || (player1 === player2 && "none") || "opponent";
 };
 
-const choices = [];
+const data = [];
 
 // Create a new WebSocket server instance
 const server = new WebSocket.Server({ port: 3001 });
@@ -21,13 +21,14 @@ server.on("connection", socket => {
 
     // Handle incoming WebSocket messages
     socket.on("message", message => {
-        choices.push(message);
+        console.log(JSON.parse(message));
+        data.push(JSON.parse(message));
     });
 
     // Echo the message back to the client
-    if (choices.length === 2) {
-        socket.send(determineWinner(choices[0], choices[1]));
-        choices = [];
+    if (data.length === 2) {
+        socket.send(determineWinner(data[0].choice, data[1].choices));
+        data.length = 0;
     }
 
     // Handle WebSocket errors
