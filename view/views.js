@@ -34,9 +34,9 @@ export const weaponView = (classes, weapon) => `
   </div>
   `;
 
-export const choiceView = (weapon, win, house) => `
+export const choiceView = (weapon, win, opponent) => `
   <div class="container choice">
-    <p class="choice-title">${house ? "THE HOUSE" : "YOU"} PICKED</p>
+    <p class="choice-title">${opponent ? "THE OPPONENT" : "YOU"} PICKED</p>
     ${weaponView(
         {
             "outer-circle": `${weapon}-chosen game-over ${win && "win"} oc-big`,
@@ -51,7 +51,7 @@ export const choiceView = (weapon, win, house) => `
 
 export const placeholderView = `
   <div class="container choice">
-    <p class="choice-title">THE HOUSE PICKED</p>
+    <p class="choice-title">THE OPPONENT PICKED</p>
     <div class="placeholder"></div>
   </div>
   `;
@@ -60,7 +60,7 @@ export const resultView = winner => {
     return `
     <div class="container result-play-again">
       <p class="result">${
-          (winner === "player" && "YOU WIN") || (winner === "house" && "YOU LOSE") || (winner === "none" && "DRAW")
+          (winner === "player" && "YOU WIN") || (winner === "opponent" && "YOU LOSE") || (winner === "none" && "DRAW")
       } 
       </p>
       <button class="btn-play-again">PLAY AGAIN</button>
@@ -69,8 +69,8 @@ export const resultView = winner => {
 };
 
 export const titleScore = select(".title-score");
-export const userScore = select("#user-score");
-export const houseScore = select("#house-score");
+export const playerScore = select("#player-score");
+export const opponentScore = select("#opponent-score");
 export const backdrop = select(".bg-model");
 export const rulesPopup = select(".rules-popup");
 export const btnRules = select(".rules-button");

@@ -5,8 +5,8 @@ import {
     placeholderView,
     titleScore,
     arenaWrapperHTML,
-    userScore,
-    houseScore,
+    playerScore,
+    opponentScore,
     backdrop,
     rulesPopup,
     btnRules,
@@ -20,7 +20,15 @@ import {
     select,
     selectMany,
 } from "./view/views.js";
-import { weapons, rules } from "./model/models.js";
+import { weapons } from "./model/models.js";
+
+let playerChoiceStr;
+let opponentChoiceStr;
+let playerChoiceHTML;
+let opponentChoiceHTML;
+let winner;
+
+const gameSocket = new WebSocket("ws://127.0.0.1:3001");
 
 const closeRules = () => {
     backdrop.classList.toggle("hidden");
@@ -28,17 +36,13 @@ const closeRules = () => {
 };
 
 const resultPlayAgain = winner => {
-    (winner === "player" && userScore.textContent++) || (winner === "house" && houseScore.textContent++);
+    (winner === "player" && playerScore.textContent++) || (winner === "opponent" && opponentScore.textContent++);
     return resultView(winner);
 };
 
 whenClicked([backdrop, btnRules, btnClose], closeRules);
 
-const determineWinner = (player1, player2) => {
-    return (rules[player1].winsOver === player2 && "player") || (player1 === player2 && "none") || "house";
-};
-
-const init = () => {
+function init() {
     // Prepare the arena with choices
     addAfter(titleScore, arenaWrapperHTML);
     const arenaWrapper = select(".arena-wrapper");
@@ -48,37 +52,46 @@ const init = () => {
     // Add all the weapons to the screen for the player to choose
     weapons.forEach(weapon => addInside(arena, weaponView({ "outer-circle": weapon }, weapon)));
     selectMany(".outer-circle").forEach(weapon =>
-        whenClicked(weapon, () => {
+        whenClicked(weapon, async () => {
             // Choice is made - weapon is chosen
-            const weaponTitle = weapon.classList[1];
-            const houseWeaponTitle = weapons[Math.floor(Math.random() * weapons.length)];
-            // Check who wins
-            const winner = determineWinner(weaponTitle, houseWeaponTitle);
-            // Prepare DOM elements for the pending state
-            let playerChoiceHTML = choiceView(weaponTitle);
-            const houseWeaponHTML =
-                winner === "house"
-                    ? choiceView(houseWeaponTitle, true, true)
-                    : choiceView(houseWeaponTitle, false, true);
+            playerChoiceStr = weapon.classList[1];
+            gameSocket.send(JSON.stringify({ choice: playerChoiceStr }));
+            opponentChoiceStr = weapons[Math.floor(Math.random() * weapons.length)];
+            gameSocket.send(JSON.stringify({ choice: opponentChoiceStr }));
+
             // Remove the screen with 3 weapon choices
             destroy(arena);
+
+            // Prepare DOM elements for the pending state
+            playerChoiceHTML = choiceView(playerChoiceStr);
+            opponentChoiceHTML = placeholderView;
+
             // Display pending state
             addInside(arenaWrapper, playerChoiceHTML + placeholderView);
-            // Modify player's element in case he wins
-            if (winner === "player") playerChoiceHTML = choiceView(weaponTitle, true);
-            // Wait for the house to make a choice
-            setTimeout(() => {
-                // Replace the placeholder with the house's DOM element
-                select(".placeholder").closest(".choice").remove();
-                addInside(arenaWrapper, resultPlayAgain(winner) + houseWeaponHTML);
-                // Enable game restart when 'Play again' button is pressed
-                whenClicked(select(".btn-play-again"), () => {
-                    destroy(arenaWrapper);
-                    init();
-                });
-            }, 1000);
+
+            // Wait for the message from the server
+            gameSocket.onmessage = event =>
+                setTimeout(() => {
+                    winner = event.data;
+                    console.log(winner);
+
+                    // Modify players' views in case he wins
+                    if (winner === "player") playerChoiceHTML = choiceView(playerChoiceStr, true);
+                    if (winner === "opponent") opponentChoiceHTML = choiceView(opponentChoiceStr, true, true);
+                    else opponentChoiceHTML = choiceView(opponentChoiceStr, false, true);
+
+                    // Replace the placeholder with the opponent's DOM view
+                    select(".placeholder").closest(".choice").remove();
+                    addInside(arenaWrapper, resultPlayAgain(winner) + opponentChoiceHTML);
+
+                    // Enable game restart when 'Play again' button is pressed
+                    whenClicked(select(".btn-play-again"), () => {
+                        destroy(arenaWrapper);
+                        init();
+                    });
+                }, 1000);
         })
     );
-};
+}
 
 init();
