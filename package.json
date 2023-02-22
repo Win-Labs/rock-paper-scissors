@@ -1,0 +1,25 @@
+{
+    "name": "rps",
+    "version": "1.0.0",
+    "description": "Implement multiplayer feature using WebSocket",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gylman/rps.git"
+    },
+    "author": "Gylman & Orkhan",
+    "license": "none",
+    "bugs": {
+        "url": "https://github.com/gylman/rps/issues"
+    },
+    "homepage": "https://github.com/gylman/rps#readme",
+    "dependencies": {
+        "nodemon": "^2.0.20",
+        "ws": "^8.12.1",
+        "wss": "^3.3.4"
+    }
+}
