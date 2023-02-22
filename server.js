@@ -16,20 +16,17 @@ const data = [];
 const server = new WebSocket.Server({ port: 3001 });
 
 // Handle incoming WebSocket connections
-server.on("connection", socket => {
+server.on("connection", async socket => {
     console.log("New WebSocket connection");
 
     // Handle incoming WebSocket messages
     socket.on("message", message => {
-        console.log(JSON.parse(message));
         data.push(JSON.parse(message));
+        if (data.length === 2) {
+            socket.send(determineWinner(data[0].choice, data[1].choice));
+            data.length = 0;
+        }
     });
-
-    // Echo the message back to the client
-    if (data.length === 2) {
-        socket.send(determineWinner(data[0].choice, data[1].choices));
-        data.length = 0;
-    }
 
     // Handle WebSocket errors
     socket.on("error", error => {

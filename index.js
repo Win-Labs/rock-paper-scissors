@@ -42,43 +42,56 @@ const resultPlayAgain = winner => {
 
 whenClicked([backdrop, btnRules, btnClose], closeRules);
 
-// Prepare the arena with choices
-addAfter(titleScore, arenaWrapperHTML);
-const arenaWrapper = select(".arena-wrapper");
-addInside(arenaWrapper, arenaHTML);
-const arena = select(".arena");
+function init() {
+    // Prepare the arena with choices
+    addAfter(titleScore, arenaWrapperHTML);
+    const arenaWrapper = select(".arena-wrapper");
+    addInside(arenaWrapper, arenaHTML);
+    const arena = select(".arena");
 
-// Add all the weapons to the screen for the player to choose
-weapons.forEach(weapon => addInside(arena, weaponView({ "outer-circle": weapon }, weapon)));
-selectMany(".outer-circle").forEach(weapon =>
-    whenClicked(weapon, async () => {
-        // Choice is made - weapon is chosen
-        playerChoiceStr = weapon.classList[1];
-        gameSocket.send(JSON.stringify({ choice: playerChoiceStr }));
-        opponentChoiceStr = weapons[Math.floor(Math.random() * weapons.length)];
-        gameSocket.send(JSON.stringify({ choice: opponentChoiceStr }));
-        // Remove the screen with 3 weapon choices
-        destroy(arena);
-        // Prepare DOM elements for the pending state
-        playerChoiceHTML = choiceView(playerChoiceStr);
-        opponentChoiceHTML = placeholderView;
-        // Display pending state
-        addInside(arenaWrapper, playerChoiceHTML + placeholderView);
-    })
-);
+    // Add all the weapons to the screen for the player to choose
+    weapons.forEach(weapon => addInside(arena, weaponView({ "outer-circle": weapon }, weapon)));
+    selectMany(".outer-circle").forEach(weapon =>
+        whenClicked(weapon, async () => {
+            // Choice is made - weapon is chosen
+            playerChoiceStr = weapon.classList[1];
+            gameSocket.send(JSON.stringify({ choice: playerChoiceStr }));
+            opponentChoiceStr = weapons[Math.floor(Math.random() * weapons.length)];
+            gameSocket.send(JSON.stringify({ choice: opponentChoiceStr }));
 
-gameSocket.onmessage = async event => {
-    winner = await event.data;
-    console.log(winner);
-    // Modify players' elements in case he wins
-    if (winner === "player") playerChoiceHTML = choiceView(playerChoiceStr, true);
-    if (winner === "opponent") opponentChoiceHTML = choiceView(opponentChoiceStr, true, true);
-    // Replace the placeholder with the opponent's DOM element
-    select(".placeholder").closest(".choice").remove();
-    addInside(arenaWrapper, resultPlayAgain(winner) + opponentChoiceHTML);
-    // Enable game restart when 'Play again' button is pressed
-    whenClicked(select(".btn-play-again"), () => {
-        destroy(arenaWrapper);
-        init();
-    });
-};
+            // Remove the screen with 3 weapon choices
+            destroy(arena);
+
+            // Prepare DOM elements for the pending state
+            playerChoiceHTML = choiceView(playerChoiceStr);
+            opponentChoiceHTML = placeholderView;
+
+            // Display pending state
+            addInside(arenaWrapper, playerChoiceHTML + placeholderView);
+
+            // Wait for the message from the server
+            gameSocket.onmessage = event =>
+                setTimeout(() => {
+                    winner = event.data;
+                    console.log(winner);
+
+                    // Modify players' views in case he wins
+                    if (winner === "player") playerChoiceHTML = choiceView(playerChoiceStr, true);
+                    if (winner === "opponent") opponentChoiceHTML = choiceView(opponentChoiceStr, true, true);
+                    else opponentChoiceHTML = choiceView(opponentChoiceStr, false, true);
+
+                    // Replace the placeholder with the opponent's DOM view
+                    select(".placeholder").closest(".choice").remove();
+                    addInside(arenaWrapper, resultPlayAgain(winner) + opponentChoiceHTML);
+
+                    // Enable game restart when 'Play again' button is pressed
+                    whenClicked(select(".btn-play-again"), () => {
+                        destroy(arenaWrapper);
+                        init();
+                    });
+                }, 1000);
+        })
+    );
+}
+
+init();

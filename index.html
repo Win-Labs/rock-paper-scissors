@@ -1,48 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="index.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <title>RPS</title>
-  </head>
-  <body>
-    <div class="container main">
-      <div class="container title-score">
-        <div class="score">
-          <p class="score-text">SCORE</p>
-          <p id="user-score" class="score-value">0</p>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="index.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <title>RPS</title>
+    </head>
+    <body>
+        <div class="container main">
+            <div class="container title-score">
+                <div class="score">
+                    <p class="score-text">SCORE</p>
+                    <p id="player-score" class="score-value">0</p>
+                </div>
+                <div class="title">ROCK PAPER SCISSORS</div>
+                <div class="score">
+                    <p class="score-text">SCORE</p>
+                    <p id="opponent-score" class="score-value">0</p>
+                </div>
+            </div>
+            <div class="container button-wrapper">
+                <button class="rules-button">RULES</button>
+            </div>
         </div>
-        <div class="title">ROCK PAPER SCISSORS</div>
-        <div class="score">
-          <p class="score-text">SCORE</p>
-          <p id="house-score" class="score-value">0</p>
+        <div class="bg-model hidden"></div>
+        <div class="rules-popup hidden">
+            <div class="container popup-top">
+                <p class="popup-text">RULES</p>
+                <img class="cross-img" src="./assets/images/cross.svg" alt="close" />
+            </div>
+            <div class="container popup-bottom">
+                <img class="rules-img" src="./assets/images/rules.svg" alt="rules" />
+            </div>
         </div>
-      </div>
-      <div class="container button-wrapper">
-        <button class="rules-button">RULES</button>
-      </div>
-    </div>
-    <div class="bg-model hidden"></div>
-    <div class="rules-popup hidden">
-      <div class="container popup-top">
-        <p class="popup-text">RULES</p>
-        <img class="cross-img" src="./assets/images/cross.svg" alt="close" />
-      </div>
-      <div class="container popup-bottom">
-        <img class="rules-img" src="./assets/images/rules.svg" alt="rules" />
-      </div>
-    </div>
 
-    <script src="index.js" type="module"></script>
-    <script src="./view/views.js" type="module"></script>
-    <script src="./model/models.js" type="module"></script>
-  </body>
+        <script src="index.js" type="module"></script>
+        <script src="./view/views.js" type="module"></script>
+        <script src="./model/models.js" type="module"></script>
+    </body>
 </html>
